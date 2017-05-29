@@ -1,0 +1,13 @@
+{
+  "url": "http://aismfc.mfc.local/infobox/",
+  "affiliates":[
+    {
+      "name": "Елизово",
+      "deviceUuid": "e5ccab36-24df-481e-b036-ee8252f3ec01"
+    },
+    {
+      "name": "Пограничная",
+      "deviceUuid": "396138c0-423c-4764-a2ad-3216481b1221"
+    }
+  ]
+}
