@@ -1,6 +1,7 @@
 package com.yelisoft.mfc.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * Created by eliseev on 29.05.2017.
@@ -20,7 +21,7 @@ public class Ticket {
 		private long waitTime;
 		private long duration;
 		private boolean remoteReg;
-		private LocalDateTime regTime;
+		private Date regTime;
 		private String serviceName;
 		private String queueUuid;
 		private String cabnumsList;
@@ -224,11 +225,11 @@ public class Ticket {
         this.remoteReg = remoteReg;
     }
 
-    public LocalDateTime getRegTime() {
+    public Date getRegTime() {
         return regTime;
     }
 
-    public void setRegTime(LocalDateTime regTime) {
+    public void setRegTime(Date regTime) {
         this.regTime = regTime;
     }
 

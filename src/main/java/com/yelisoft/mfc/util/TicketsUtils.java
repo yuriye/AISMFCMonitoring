@@ -28,22 +28,16 @@ import org.apache.commons.httpclient.methods.PostMethod;
 public class TicketsUtils {
     private static final Logger LOG = LoggerFactory.getLogger(TicketsUtils.class);
 
-    /*
-    ArrayList<Ticket> getAllTicketsForAffiliate(String deviceUuid) {
-        String url = Config.getConfig().getUrl();
-        url = url + "/getqueue/" + deviceUuid + "?queueUuid=all";
-
-
-        return null;
-    }*/
-
-    public List<Ticket> getAllTicketsForAffiliate(String deviceUuid) {
+    public static List<Ticket> getAllTicketsForAffiliate(String urlStr, String deviceUuid) {
 
         HttpClient httpClientForGetQueue;
 
         List<Ticket> result = new ArrayList<>();
 
-        String str = Config.getConfig().getUrl() + "/getqueue/" + deviceUuid + "?queueUuid=all";
+        String str = urlStr
+                + "getqueue/"
+                + deviceUuid
+                + "?queueUuid=all";
         httpClientForGetQueue = new HttpClient();
         LOG.info("getQueue url = {}", str);
 

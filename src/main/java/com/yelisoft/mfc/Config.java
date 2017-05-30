@@ -16,15 +16,26 @@ import java.util.List;
 public class Config {
     private List<Affiliate> affiliates = new ArrayList<>();
     private String url;
+    private static Config instance = null;
 
-    private static Config config;
+    private Config() {}
 
-    public void init() throws FileNotFoundException {
-        Reader reader = new FileReader(Thread.currentThread().getContextClassLoader().getResource("properties.json").getPath());
-        JsonReader jsonReader = new JsonReader(reader);
-        Gson gson = new Gson();
-        Config config = gson.fromJson(jsonReader, Config.class);
-        System.out.println(config);
+
+
+    public static synchronized Config getInstance() {
+        if (instance == null) {
+            Reader reader = null;
+            try {
+                reader = new FileReader(Thread.currentThread().getContextClassLoader().getResource("properties.json").getPath());
+                JsonReader jsonReader = new JsonReader(reader);
+                Gson gson = new Gson();
+                instance = gson.fromJson(jsonReader, Config.class);
+                System.out.println(instance);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return instance;
     }
 
     public void setAffiliates(List<Affiliate> affiliates) {
@@ -42,16 +53,6 @@ public class Config {
     public void setUrl(String url) {
         this.url = url;
     }
-
-    public static Config getConfig() {
-        return config;
-    }
-
-    public static void setConfig(Config config) {
-        Config.config = config;
-    }
-
-
 
     @Override
     public String toString() {
