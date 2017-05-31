@@ -5,7 +5,8 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-        <bean class="com.yelisoft.mfc.Config" id="config"/>
+        <bean id="config" class="com.yelisoft.mfc.Config"
+                factory-method="getInstance"/>
 
     <!--
             <bean class="ru.javawebinar.topjava.service.UserServiceImpl">

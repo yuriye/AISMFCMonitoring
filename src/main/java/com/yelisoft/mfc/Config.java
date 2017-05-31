@@ -16,27 +16,36 @@ import java.util.List;
 public class Config {
     private List<Affiliate> affiliates = new ArrayList<>();
     private String url;
-    private static Config instance = null;
 
     private Config() {}
 
+    private static class ConfigSingletonHolder {
+        static Config instance = instantiateInstance();
 
-
-    public static synchronized Config getInstance() {
-        if (instance == null) {
-            Reader reader = null;
-            try {
-                reader = new FileReader(Thread.currentThread().getContextClassLoader().getResource("properties.json").getPath());
-                JsonReader jsonReader = new JsonReader(reader);
-                Gson gson = new Gson();
-                instance = gson.fromJson(jsonReader, Config.class);
-                System.out.println(instance);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+        private static Config instantiateInstance() {
+            Config result = null;
+            if (instance == null) {
+                Reader reader = null;
+                try {
+                    reader = new FileReader(Thread.currentThread()
+                            .getContextClassLoader()
+                            .getResource("properties.json")
+                            .getPath());
+                    JsonReader jsonReader = new JsonReader(reader);
+                    Gson gson = new Gson();
+                    result = gson.fromJson(jsonReader, Config.class);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
+            return result;
         }
-        return instance;
     }
+
+    public static Config getInstance() {
+        return ConfigSingletonHolder.instance;
+    }
+
 
     public void setAffiliates(List<Affiliate> affiliates) {
         this.affiliates = affiliates;

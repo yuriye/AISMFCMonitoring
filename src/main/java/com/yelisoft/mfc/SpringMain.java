@@ -17,7 +17,6 @@ public class SpringMain {
         try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
             Config config = appCtx.getBean(Config.class);
-            config = Config.getInstance();
 
             for (Affiliate affiliate : config.getAffiliates()) {
                 //"e5ccab36-24df-481e-b036-ee8252f3ec01"
