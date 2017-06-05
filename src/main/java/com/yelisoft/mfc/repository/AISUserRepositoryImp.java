@@ -1,10 +1,13 @@
 package com.yelisoft.mfc.repository;
 
 import com.yelisoft.mfc.model.AISUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +16,11 @@ import java.util.stream.Collectors;
 /**
  * Created by eliseev on 05.06.2017.
  */
+
+@Repository
 public class AISUserRepositoryImp implements AISUserRepository {
-    private static Map<Long, AISUser> aisUsers = new HashMap<Long, AISUser>();
+
+    private static Map<Long, AISUser> aisUsers = new HashMap<>();
 
     private static final BeanPropertyRowMapper<AISUser> ROW_MAPPER = BeanPropertyRowMapper.newInstance(AISUser.class);
 
@@ -24,7 +30,8 @@ public class AISUserRepositoryImp implements AISUserRepository {
 
     /*private final SimpleJdbcInsert insertAisUser;*/
 
-    public AISUserRepositoryImp(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    @Autowired
+    public AISUserRepositoryImp(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         List<AISUser> aisUserList = jdbcTemplate.query("SELECT * FROM cpgu_user ORDER BY name, email", ROW_MAPPER);
